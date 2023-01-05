@@ -49,8 +49,8 @@ all: $(TARGET)
 $(TARGET): $(objects) 
 	$(CXX) $(LIBRARIES) -o $@ $^ $(LDFLAGS)
 
-glad.o: ./glTraim/glad.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c -o glad.o ./glTraim/glad.c
+# glad.o: ./glad.c
+# 	$(CC) $(CFLAGS) $(INCLUDES) -c -o glad.o ./glad.c
 
 .PHONY : clean
 clean :
