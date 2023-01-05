@@ -1,18 +1,18 @@
-
-
-ifeq ($(OS),Windows_NT)
-# Meant to be compiled on mysys and ran via ./main.exe on msys terminal
 CC = gcc
 CXX = g++
 
 INCLUDES = -I$(all_inc) #-I$(glfw_inc) -I$(glad_inc)
 LIBRARIES = -L$(glfw_lib)
 
+OBJDIR = ./objects
 
-all_inc = .\includes
-#glfw_inc = .\includes\GLFW
-glfw_inc = 
-glad_inc = ./includes/glad
+all_inc = ./includes
+
+cpp_files = main.cpp ./src/Shader.cpp
+objects = $(cpp_files:.cpp=.o) glad.o
+
+ifeq ($(OS),Windows_NT)
+# Meant to be compiled on mysys and ran via ./main.exe on msys terminal
 
 glfw_lib = /mingw64/lib #./libs #$(glfw)/lib64
 
@@ -21,8 +21,6 @@ TARGET = .\main.exe
 CXXFLAGS = -Wall -ggdb -O3 $(INCLUDES)
 LDFLAGS = $(LIBRARIES) ./libs/libglfw3dll.a -lopengl32  -luser32 -lkernel32 -lglu32 -lgdi32 # -lmingw32
 
-cpp_files = .\glTraim\main.cpp .\glTraim\src\Shader.cpp
-objects = $(cpp_files:.cpp=.o) glad.o
 headers =
 
 all: $(TARGET)
@@ -30,34 +28,20 @@ all: $(TARGET)
 $(TARGET): $(objects) 
 	$(CXX) $(LIBRARIES) -o $@ $^ $(LDFLAGS)
 
-glad.o: ./glTraim/glad.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c -o glad.o .\glTraim\glad.c
-
 .PHONY : clean
 clean :
 	-rm $(TARGET) $(objects)
 ###############################################################################
 else
-CC = gcc
-CXX = g++
 
-all_inc = ./includes
-#glfw = .
-# glfw_inc = ./includes/GLFW #$(glfw)/include
 glfw_lib = ./libs/ #$(glfw)/lib64
 
-# glad = ./includes/glad
-# glad_inc = $(glad)/include
 
-INCLUDES = -I$(all_inc) #-I$(glfw_inc) -I$(glad_inc)
-LIBRARIES = -L$(glfw_lib) 
-
+CFLAGS = -Wall -ggdb -O3 $(INCLUDES)
 TARGET = main.out
 CXXFLAGS = -Wall -ggdb -O3 -framework OpenGL -framework GLUT $(INCLUDES)
 LDFLAGS = $(LIBRARIES) -lglfw  #-lopengl32 -lglu32 -lgdi32
 
-cpp_files = ./glTraim/main.cpp ./glTraim/src/Shader.cpp
-objects = $(cpp_files:.cpp=.o) glad.o
 headers =
 
 all: $(TARGET)
@@ -72,9 +56,6 @@ glad.o: ./glTraim/glad.c
 clean :
 	-rm $(TARGET) $(objects)
 endif
-
-
-
 
 
 
