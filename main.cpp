@@ -3,14 +3,7 @@
 #endif
 
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
-#include "Shader.hpp"
-
-#include <iostream>
-#include <cmath>
-
+#include "main.hpp"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
@@ -21,25 +14,6 @@ const unsigned int SCR_HEIGHT = 600;
 
 // Drawing
 //void createCircle(float cx, float cy, float radius);
-
-
-// const char* vertexShaderSource = "#version 330 core\n"
-// "layout (location = 0) in vec3 aPos;\n"
-// "layout (location = 1) in vec3 aColor;\n"
-// "out vec3 ourColor;\n"
-// "void main()\n"
-// "{\n"
-// "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-// "   ourColor = aPos;\n"
-// "}\0";
-// const char* fragmentShaderSource = "#version 330 core\n"
-// "in vec3 ourColor;\n"
-// "out vec4 FragColor;\n"
-// "//uniform vec4 ourColor;\n"
-// "void main()\n"
-// "{\n"
-// "   FragColor = vec4(ourColor, 1.0f);\n//vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-// "}\n\0";
 
 int main()
 {
@@ -72,7 +46,7 @@ int main()
         return -1;
     }
 
-    Shader myShader("../resources/main.vert","../resources/main.frag");
+    Shader myShader("resources/main.vert","resources/main.frag");
 
 
     // // build and compile our shader program
