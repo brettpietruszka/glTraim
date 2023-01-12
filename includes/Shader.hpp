@@ -1,14 +1,19 @@
 #ifndef SHADER_H
 #define SHADER_H
 
-#include <glad/glad.h> // include glad to get all the required OpenGL headers
+#include "main.hpp"
   
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+
 #include <string>
 #include <fstream>
 #include <sstream>
-#include <iostream>
+//#include <iostream>
   
-/* SHADERS
+/* SHADERS helpful info
 vec.x, vec.y ...
 Swizzling: 
 vec2 someVec;
@@ -40,7 +45,7 @@ dvecn : a vector of n double components.
 class Shader {
     public:
         // the program ID
-        unsigned int ID;
+        unsigned int ID; 
     
         // constructor reads and builds the shader
         Shader(const char* vertexPath, const char* fragmentPath);
@@ -50,6 +55,7 @@ class Shader {
         void setBool(const std::string &name, bool value) const;  
         void setInt(const std::string &name, int value) const;   
         void setFloat(const std::string &name, float value) const;
+        void setTransMatrix(const std::string &name, float* tranform_array, int num_objs) const;
 
     private:
         void checkCompileErrors(unsigned int, std::string);

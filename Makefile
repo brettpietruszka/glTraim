@@ -36,7 +36,6 @@ else
 
 glfw_lib = ./libs/ #$(glfw)/lib64
 
-
 CFLAGS = -Wall -ggdb -O3 $(INCLUDES)
 TARGET = main.out
 CXXFLAGS = -Wall -ggdb -O3 -framework OpenGL -framework GLUT $(INCLUDES)

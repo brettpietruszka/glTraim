@@ -3,14 +3,7 @@
 #endif
 
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
-#include "Shader.hpp"
-
-#include <iostream>
-#include <cmath>
-
+#include "main.hpp"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
@@ -22,25 +15,6 @@ const unsigned int SCR_HEIGHT = 600;
 // Drawing
 //void createCircle(float cx, float cy, float radius);
 
-
-// const char* vertexShaderSource = "#version 330 core\n"
-// "layout (location = 0) in vec3 aPos;\n"
-// "layout (location = 1) in vec3 aColor;\n"
-// "out vec3 ourColor;\n"
-// "void main()\n"
-// "{\n"
-// "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-// "   ourColor = aPos;\n"
-// "}\0";
-// const char* fragmentShaderSource = "#version 330 core\n"
-// "in vec3 ourColor;\n"
-// "out vec4 FragColor;\n"
-// "//uniform vec4 ourColor;\n"
-// "void main()\n"
-// "{\n"
-// "   FragColor = vec4(ourColor, 1.0f);\n//vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-// "}\n\0";
-
 int main()
 {
     // glfw: initialize and configure
@@ -48,15 +22,16 @@ int main()
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+
 
     // glfw window creation
     // --------------------
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "glTraim", NULL, NULL);
     if (window == NULL) {
         std::cout << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
@@ -72,51 +47,7 @@ int main()
         return -1;
     }
 
-    Shader myShader("../resources/main.vert","../resources/main.frag");
-
-
-    // // build and compile our shader program
-    // // ------------------------------------
-    // // vertex shader
-    // unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    // glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-    // glCompileShader(vertexShader);
-    // // check for shader compile errors
-    // int success;
-    // char infoLog[512];
-    // glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-    // if (!success)
-    // {
-    //     glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-    //     std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
-    // }
-    // // fragment shader
-    // unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    // glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-    // glCompileShader(fragmentShader);
-    // // check for shader compile errors
-    // glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
-    // if (!success)
-    // {
-    //     glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-    //     std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
-    // }
-    // // link shaders
-    // unsigned int shaderProgram = glCreateProgram();
-    // glAttachShader(shaderProgram, vertexShader);
-    // glAttachShader(shaderProgram, fragmentShader);
-    // glLinkProgram(shaderProgram);
-    // // check for linking errors
-    // glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
-    // if (!success) {
-    //     glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
-    //     std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
-    // }
-    // glDeleteShader(vertexShader);
-    // glDeleteShader(fragmentShader);
-
-    // set up vertex data (and buffer(s)) and configure vertex attributes
-    // ------------------------------------------------------------------
+    Shader myShader("resources/main.vert","resources/main.frag");
 
     float vertices[] = {
         // positions         // colors
@@ -192,11 +123,38 @@ int main()
         myShader.use();
 
 
-        // // update uniform color
-        // double timeValue = glfwGetTime();
-        // float greenValue = static_cast<float>(sin(timeValue) / 2.0 + 0.5);
-        // int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
-        // glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
+        int num_objects = 2;
+
+        glm::mat4 m1 (1.0f);
+        glm::mat4 m2 (1.0f);
+        m1 = glm::rotate(m1, glm::radians(45.0f), glm::vec3(0.0,0.0,1.0));
+
+        glm::mat4 transform_test[2];
+        transform_test[0] = m1;
+        transform_test[1] = m2;
+        
+        // float transform_array[16 * num_objects];
+        // float * mf1 = glm::value_ptr(m1);
+        // float * mf2 = glm::value_ptr(m2);
+        // std::copy(mf1, mf1 + 16, transform_array);
+        // std::copy(mf2, mf2 + 16, transform_array + 16);
+
+        float * transform_array = glm::value_ptr(transform_test[0]);
+
+        // loop through the array elements
+        for (size_t i = 0; i < 16 * num_objects; i++) {
+            if(i%4==0) std::cerr << '\n';
+            std::cerr << transform_array[i] << ' ';
+        }
+        std::cerr << "\n";
+        
+
+        
+
+        // update uniform color
+        myShader.setInt("numObjs",num_objects);
+        myShader.setTransMatrix("transform", glm::value_ptr(transform_test[0]), num_objects);
+        
 
 
         glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
