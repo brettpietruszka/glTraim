@@ -9,25 +9,31 @@
 
 
 namespace gltraim {
-    class Circle {
+    
+class Circle {
 
     private: 
+        static inline unsigned int curID;
+        
         double radius; // initial radius
         glm::vec2 position; // xy initial position 
         glm::mat2 transform; // transformation matrix
-        
+        float vertexArray()
 
         void createVertexArray();
 
     public:
+        unsigned int ID; // to be implemented
+
         Circle(glm::vec2 position, double radius);
         void translate();
         void scale();
 
         glm::vec2 getPosition();
+        float * getVertArray();
 
 
-    }; 
+}; 
 }
 
 

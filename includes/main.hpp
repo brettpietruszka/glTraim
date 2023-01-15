@@ -5,6 +5,7 @@
 // User defined Files
 #include "Shader.hpp"
 #include "Circle.hpp"
+#include "Globals.hpp"
 
 // 3rd Party Libraries
 #include <glm/glm.hpp>
@@ -17,6 +18,7 @@
 #include <iostream>
 #include <cmath>
 #include <algorithm>
+#include <vector>
 
 
 #endif
