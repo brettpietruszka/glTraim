@@ -8,7 +8,7 @@ OBJDIR = ./objects
 
 all_inc = ./includes
 
-cpp_files = main.cpp ./src/Shader.cpp
+cpp_files = main.cpp ./src/Circle.cpp ./src/CircleObjectHolder.cpp ./src/globals.cpp ./src/Shader.cpp
 objects = $(cpp_files:.cpp=.o) glad.o
 
 ifeq ($(OS),Windows_NT)
@@ -38,7 +38,7 @@ glfw_lib = ./libs/ #$(glfw)/lib64
 
 CFLAGS = -Wall -ggdb -O3 $(INCLUDES)
 TARGET = main.out
-CXXFLAGS = -Wall -ggdb -O3 -framework OpenGL -framework GLUT $(INCLUDES)
+CXXFLAGS = -std=c++17 -Wall -ggdb -O3 -framework OpenGL -framework GLUT $(INCLUDES)
 LDFLAGS = $(LIBRARIES) -lglfw  #-lopengl32 -lglu32 -lgdi32
 
 headers =

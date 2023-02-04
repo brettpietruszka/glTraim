@@ -3,34 +3,35 @@
 //glTraim::Circle::curID {0};
 
 glTraim::Circle::Circle(glm::vec2 pos, double rad) 
-    : position{pos}, radius{rad}, ID : {curID++} {
+    : position{pos}, radius{rad}, ID{curID++} {
 
-    this->transform = glm::translate(glm::mat4 (1.0f);, glm::vec3(pos.x,pos.y,0.0f));
-    this->createVertexArray();
+    this->transform = glm::translate(glm::mat4 (1.0f), glm::vec3(pos.x,pos.y,0.0f));
+    this->transform = glm::scale(this->transform, glm::vec3(0.1 * rad, 0.1 * rad, 0.0f));
 
 }
 
-
-glTraim::Circle::createVertexArray() {
-    
-    // Create a circle of vertices with radius one 
-    // centered around the point 0,0
-    // these vertices will be translated via transform
-
-
-    // plan is to use a fragment shader to simply turn
-    // it into a circle 
-    
-    // define another attribute 
-    float right = 0.5;
-    float bottom = -0.5;
-    float left = -0.5;
-    float top = 0.5;
-    this->vertexArray = {
-        //x, y, z, lx, ly
-        right, bottom, 0, 1.0, -1.0,
-        right, top, 0, 1.0, 1.0,
-        left, top, 0, -1.0, 1.0,
-        left, bottom, 0, -1.0, -1.0,
-    };
+void glTraim::Circle::translate(glm::vec3 trans) {
+    this->transform = glm::translate(this->transform, trans);
+    this->position = this->position + glm::vec2(trans.x, trans.y);
 }
+
+void glTraim::Circle::scale(double value) {
+    this->transform = glm::translate(this->transform, glm::vec3(value,value,value));
+    this->radius = this->radius * value;
+}
+
+float * glTraim::Circle::getTransform() {
+    return glm::value_ptr(this->transform);
+}
+
+
+glm::vec2 glTraim::Circle::getPosition() {
+    return this->position;
+}
+
+
+bool glTraim::operator==(const glTraim::Circle& c1, const glTraim::Circle& c2) {
+   return c1.ID == c2.ID;
+}
+
+

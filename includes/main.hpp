@@ -1,11 +1,12 @@
-#ifndef MAIN_GLTRAIM_HPP
-#define MAIN_GLTRAIM_HPP
+#pragma once 
 
 
 // User defined Files
 #include "Shader.hpp"
 #include "Circle.hpp"
-#include "Globals.hpp"
+#include "globals.hpp"
+#include "CircleObjectHolder.hpp"
+#include "Shader.hpp"
 
 // 3rd Party Libraries
 #include <glm/glm.hpp>
@@ -19,6 +20,3 @@
 #include <cmath>
 #include <algorithm>
 #include <vector>
-
-
-#endif

@@ -8,16 +8,12 @@
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 
-// settings
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
 
 // Drawing
 //void createCircle(float cx, float cy, float radius);
 
 
-int main()
-{
+int main() {
     // glfw: initialize and configure
     // ------------------------------
     glfwInit();
@@ -32,7 +28,7 @@ int main()
 
     // glfw window creation
     // --------------------
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "glTraim", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(screen_width, screen_height, "glTraim", NULL, NULL);
     if (window == NULL) {
         std::cout << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
@@ -100,6 +96,25 @@ int main()
     // uncomment this call to draw in wireframe polygons.
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
+
+    // Circle Test
+    glTraim::Circle myCircle1 (glm::vec2(2.0f,1.0f), 2.0);
+    glTraim::Circle myCircle2 (glm::vec2(0.5f,0.5f), 1.0);
+
+    game_circles.addCircle(myCircle1);
+    game_circles.addCircle(myCircle2);
+
+    game_circles.removeCircle(myCircle2);
+    game_circles.removeCircle(myCircle1);
+    
+
+
+
+
+
+
+
+
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window)) {
@@ -133,14 +148,14 @@ int main()
         // std::copy(mf1, mf1 + 16, transform_array);
         // std::copy(mf2, mf2 + 16, transform_array + 16);
 
-        float * transform_array = glm::value_ptr(transform_test[0]);
+        //float * transform_array = glm::value_ptr(transform_test[0]);
 
-        // loop through the array elements
-        for (size_t i = 0; i < 16 * num_objects; i++) {
-            if(i%4==0) std::cerr << '\n';
-            std::cerr << transform_array[i] << ' ';
-        }
-        std::cerr << "\n";
+        // // loop through the array elements
+        // for (size_t i = 0; i < 16 * num_objects; i++) {
+        //     if(i%4==0) std::cerr << '\n';
+        //     std::cerr << transform_array[i] << ' ';
+        // }
+        // std::cerr << "\n";
         
 
         
@@ -190,4 +205,6 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
     // make sure the viewport matches the new window dimensions; note that width and 
     // height will be significantly larger than specified on retina displays.
     glViewport(0, 0, width, height);
+    screen_width = width;
+    screen_height = height;
 }
