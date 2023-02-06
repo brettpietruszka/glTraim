@@ -22,6 +22,13 @@ void glTraim::CircleObjectHolder::addCircle(glTraim::Circle &newCircle) {
 
 void glTraim::CircleObjectHolder::removeCircle(glTraim::Circle &newCircle) {
     auto it = std::find(this->gameCircles.begin(), this->gameCircles.end(), newCircle);
+
+    // Check if the circle was not found
+    if (std::distance(it, this->gameCircles.end()) == 0) {
+        std::cerr << "not found";
+        return;
+    }
+
     int pos =  it - this->gameCircles.begin();
     
 

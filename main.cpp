@@ -7,6 +7,7 @@
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
+void createBuffers();
 
 
 // Drawing
@@ -45,6 +46,7 @@ int main() {
     }
 
     Shader myShader("resources/main.vert","resources/main.frag");
+    Shader circleShader("resources/circle.vert","resources/circle.frag");
 
     float vertices[] = {
         // positions         // colors
@@ -98,18 +100,17 @@ int main() {
 
 
     // Circle Test
-    glTraim::Circle myCircle1 (glm::vec2(2.0f,1.0f), 2.0);
-    glTraim::Circle myCircle2 (glm::vec2(0.5f,0.5f), 1.0);
+    // glTraim::Circle myCircle1 (glm::vec2(2.0f,1.0f), 2.0);
+    // glTraim::Circle myCircle2 (glm::vec2(0.5f,0.5f), 1.0);
+    // glTraim::Circle myCircle3 (glm::vec2(0.25f,0.25f), 0.5);
 
-    game_circles.addCircle(myCircle1);
-    game_circles.addCircle(myCircle2);
+    // game_circles.addCircle(myCircle1);
+    // game_circles.addCircle(myCircle2);
+    // game_circles.addCircle(myCircle3);
 
-    game_circles.removeCircle(myCircle2);
-    game_circles.removeCircle(myCircle1);
-    
-
-
-
+    // game_circles.removeCircle(myCircle1);
+    // game_circles.removeCircle(myCircle2);
+    // game_circles.removeCircle(myCircle3);
 
 
 
@@ -164,6 +165,9 @@ int main() {
         myShader.setInt("numObjs",num_objects);
         myShader.setTransMatrix("transform", glm::value_ptr(transform_test[0]), num_objects);
         
+        for (int i = 0; i < 10; i++ ) {
+
+        }
 
 
         glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized

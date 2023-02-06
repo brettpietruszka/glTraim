@@ -16,9 +16,9 @@ ifeq ($(OS),Windows_NT)
 
 glfw_lib = /mingw64/lib #./libs #$(glfw)/lib64
 
-CFLAGS = -Wall -ggdb -O3 $(INCLUDES)
+CFLAGS = -Wall -ggdb -O0 $(INCLUDES)
 TARGET = .\main.exe
-CXXFLAGS = -Wall -ggdb -O3 $(INCLUDES)
+CXXFLAGS = -Wall -ggdb -O0 $(INCLUDES)
 LDFLAGS = $(LIBRARIES) ./libs/libglfw3dll.a -lopengl32  -luser32 -lkernel32 -lglu32 -lgdi32 # -lmingw32
 
 headers =
@@ -32,13 +32,13 @@ $(TARGET): $(objects)
 clean :
 	-rm $(TARGET) $(objects)
 ###############################################################################
-else
+else 
 
 glfw_lib = ./libs/ #$(glfw)/lib64
 
-CFLAGS = -Wall -ggdb -O3 $(INCLUDES)
+CFLAGS = -Wall -ggdb -Og $(INCLUDES)
 TARGET = main.out
-CXXFLAGS = -std=c++17 -Wall -ggdb -O3 -framework OpenGL -framework GLUT $(INCLUDES)
+CXXFLAGS = -std=c++17 -Wall -ggdb -Og -framework OpenGL -framework GLUT $(INCLUDES)
 LDFLAGS = $(LIBRARIES) -lglfw  #-lopengl32 -lglu32 -lgdi32
 
 headers =
